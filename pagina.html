@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>La mia Pagina</title>
+<style>
+.grid-container { display: grid; grid-template-columns: repeat(24, 1fr); grid-template-rows: repeat(19, 1fr); grid-gap: 10px; position: relative; }
+.grid-item { border: 1px solid #000; padding: 10px; position: absolute; }
+.my-button {grid-column: 1 / 5;grid-row: 1 / 4;}
+.my-div {grid-column: 6 / 10;grid-row: 19 / 22;}
+</style>
+</head>
+<body>
+<div class="grid-container">
+<div class="my-button grid-item">
+<button>Testo dell'elemento</button>
+</div>
+<div class="my-div grid-item">
+<div>Testo dell'elemento</div>
+</div>
+</div>
+</body>
+</html>
