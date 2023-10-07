@@ -5,7 +5,7 @@ CC = gcc
 
 CFLAGS = -g -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm
 
-SRC = src/main.c 
+SRC = src/webmaker.c src/provca.c src/draw.c
 
 OBJ = $(SRC:.c=.o)
 

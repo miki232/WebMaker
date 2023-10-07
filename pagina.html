@@ -2,20 +2,58 @@
 <html>
 <head>
 <title>La mia Pagina</title>
-<style>
-.grid-container { display: grid; grid-template-columns: repeat(24, 1fr); grid-template-rows: repeat(19, 1fr); grid-gap: 10px; position: relative; }
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="src/PressStart2P-Regular.ttf"><style>
+.grid-container { display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); grid-gap: 80px; position: relative; }
 .grid-item { border: 1px solid #000; padding: 10px; position: absolute; }
-.my-button {grid-column: 1 / 5;grid-row: 1 / 4;}
-.my-div {grid-column: 6 / 10;grid-row: 19 / 22;}
+.my-button0 {grid-column: 4 / 5;grid-row: 5 / 6;}
+.my-button0 {background-color: white;border: 1px solid black;color: black;font-family: 'Press Start 2P', cursive;font-size: 12px;padding: 10px 20px;}
+.my-button1 {grid-column: 1 / 2;grid-row: 2 / 3;}
+.my-button1 {background-color: white;border: 1px solid black;color: black;font-family: 'Press Start 2P', cursive;font-size: 12px;padding: 10px 20px;}
+.my-button2 {grid-column: 3 / 4;grid-row: 2 / 3;}
+.my-button2 {background-color: white;border: 1px solid black;color: black;font-family: 'Press Start 2P', cursive;font-size: 12px;padding: 10px 20px;}
+.my-button3 {grid-column: 5 / 6;grid-row: 2 / 3;}
+.my-button3 {background-color: white;border: 1px solid black;color: black;font-family: 'Press Start 2P', cursive;font-size: 12px;padding: 10px 20px;}
+.my-button4 {grid-column: 9 / 10;grid-row: 2 / 3;}
+.my-button4 {background-color: white;border: 1px solid black;color: black;font-family: 'Press Start 2P', cursive;font-size: 12px;padding: 10px 20px;}
+.my-button5 {grid-column: 2 / 3;grid-row: 5 / 6;}
+.my-button5 {background-color: white;border: 1px solid black;color: black;font-family: 'Press Start 2P', cursive;font-size: 12px;padding: 10px 20px;}
+.my-button6 {grid-column: 3 / 4;grid-row: 5 / 6;}
+.my-button6 {background-color: white;border: 1px solid black;color: black;font-family: 'Press Start 2P', cursive;font-size: 12px;padding: 10px 20px;}
+.my-button7 {grid-column: 5 / 6;grid-row: 5 / 6;}
+.my-button7 {background-color: white;border: 1px solid black;color: black;font-family: 'Press Start 2P', cursive;font-size: 12px;padding: 10px 20px;}
+.my-button8 {grid-column: 4 / 5;grid-row: 5 / 6;}
+.my-button8 {background-color: white;border: 1px solid black;color: black;font-family: 'Press Start 2P', cursive;font-size: 12px;padding: 10px 20px;}
 </style>
 </head>
 <body>
 <div class="grid-container">
-<div class="my-button grid-item">
-<button>Testo dell'elemento</button>
+<div class="my-button0 grid-item">
+<button class="my-button0">BUTTON</button>
 </div>
-<div class="my-div grid-item">
-<div>Testo dell'elemento</div>
+<div class="my-button1 grid-item">
+<button class="my-button1">BUTTON</button>
+</div>
+<div class="my-button2 grid-item">
+<button class="my-button2">BUTTON</button>
+</div>
+<div class="my-button3 grid-item">
+<button class="my-button3">BUTTON</button>
+</div>
+<div class="my-button4 grid-item">
+<button class="my-button4">BUTTON</button>
+</div>
+<div class="my-button5 grid-item">
+<button class="my-button5">BUTTON</button>
+</div>
+<div class="my-button6 grid-item">
+<button class="my-button6">BUTTON</button>
+</div>
+<div class="my-button7 grid-item">
+<button class="my-button7">BUTTON</button>
+</div>
+<div class="my-button8 grid-item">
+<button class="my-button8">BUTTON</button>
 </div>
 </div>
 </body>
