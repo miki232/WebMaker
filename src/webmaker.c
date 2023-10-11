@@ -13,6 +13,14 @@ int	ft_itemsize(t_item *lst)
 	return (count);
 }
 
+void    item_position(t_item *new, int x, int y)
+{
+    new->ps_x = x / 80;
+    new->to_ps_x = (x / 80) + 1; // to complete
+    new->ps_y = y / 40;
+    new->to_ps_y = (y / 40) + 1; // to complete
+}
+
 t_item  *what_item(t_data *data, char *tag, int x, int y)
 {
     t_item *new;
@@ -23,6 +31,7 @@ t_item  *what_item(t_data *data, char *tag, int x, int y)
 
     new = ft_calloc(1, sizeof(t_item));
     new->tag = tag;
+    item_position(new, x, y);
     new->x = x;
     new->y = y;
     new->img = ft_calloc(1, sizeof(t_img));
@@ -114,8 +123,8 @@ int mouse_move(int x, int y, t_data *data)
 {
     if (data->hold == 1)
     {
-        // printf("x: %d\n", x);
-        // printf("y: %d\n", y);
+        printf("x: %d\n", x);
+        printf("y: %d\n", y);
         data->item->x = x;
         data->item->y = y;
     }

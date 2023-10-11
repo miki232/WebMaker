@@ -24,6 +24,10 @@ typedef struct s_item
     char    *tag;
     char    *id;
     char    *class;
+    int     ps_x;
+    int     to_ps_x;
+    int     ps_y;
+    int     to_ps_y;
     int     x;
     int     y;
     t_img   *img;
