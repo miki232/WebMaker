@@ -66,9 +66,9 @@ void generateHTML(t_item *head) {
         printf("Element: %s\n Position: colon %d / 1, row %d / 1\n", current->class, current->ps_x + 1 , current->ps_y + 1);
         fprintf(file, "grid-column: %d / %d;", current->ps_x + 1, current->to_ps_x);
         fprintf(file, "grid-row: %d / %d;", current->ps_y + 1, current->to_ps_y);
-        fprintf(file, "background-color: white;"); // Sfondo nero per il bottone
-        fprintf(file, "border: 1px solid black;");
-        fprintf(file, "color: black;"); // Testo bianco
+        // fprintf(file, "background-color: white;"); // Sfondo nero per il bottone
+        // fprintf(file, "border: 1px solid black;");
+        // fprintf(file, "color: black;"); // Testo bianco
         fprintf(file, "font-family: 'Press Start 2P', cursive;\n"); // Stile del font 8-bit
         fprintf(file, "font-size: 12px;"); // Dimensione del font
         fprintf(file, "padding: 10px 20px;"); // Padding
@@ -86,7 +86,7 @@ void generateHTML(t_item *head) {
     current = head;
     while (current != NULL) {
         if (strcmp(current->tag, "btn") == 0) {
-            fprintf(file, "<button class=\"grid-item %s\">BUTTON</button>\n", current->class); // Testo "BUTTON" nel bottone
+            fprintf(file, "<button class=\"grid-item h-10 px-5 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700 %s\">BUTTON</button>\n", current->class); // Testo "BUTTON" nel bottone
         }
 
         current = current->next;

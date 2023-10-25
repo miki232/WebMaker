@@ -10,6 +10,24 @@
 #define row 10
 #define col 10
 
+#ifdef __APPLE__
+enum Keys {
+    ESC_KEY = 53,
+    // Altre costanti per MacOS
+};
+#elif __linux__
+enum Keys {
+    ESC_KEY = 65307,
+    // Altre costanti per Linux
+};
+#else
+enum Keys {
+    ESC_KEY = 27, // Valore predefinito
+    // Altre costanti per altri sistemi
+};
+#endif
+
+
 typedef struct s_img
 {
     void    *img;
@@ -45,6 +63,7 @@ typedef struct	s_data
 	int		line_length;
 	int		endian;
     int     hold;
+    int     hld_move;
     t_item  *item;
 }				t_data;
 

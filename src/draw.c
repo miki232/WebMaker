@@ -71,4 +71,13 @@ void display_grid(t_data *data)
     mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
 }
 
-
+void    vertical_svg(t_data *data) ///Temporanea
+{
+    for (int i = 0; i < 250; i++)
+    {
+        for(int x = 0; x < 40; x++)
+        {
+            my_mlx_pixel_put(data, x, i, 0x000000);
+        }
+    }
+}
