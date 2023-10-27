@@ -131,7 +131,7 @@ void	ft_itemiter(t_data *data, void (*f)(t_data *data, void *))
     int x = 0;
 
 	head = data->item;
-	while (data->item->next)
+	while (data->item)
 	{
 		f(data, data->item->img->img);
 		data->item = data->item->next;
@@ -179,14 +179,14 @@ int mouse_hook(int button, int x, int y, t_data *data)
 
 int mouse_move(int x, int y, t_data *data)
 {
-    if (data->hold == 1)
-    {
-        printf("x: %d\n", x);
-        printf("y: %d\n", y);
-        data->item->x = x;
-        data->item->y = y;
-        data->hld_move = 1;
-    }
+    // if (data->hold == 1)
+    // {
+    //     printf("x: %d\n", x);
+    //     printf("y: %d\n", y);
+    //     // data->item->x = x;
+    //     // data->item->y = y;
+    //     data->hld_move = 1;
+    // }
     if (data->hold == 2 && strcmp(data->item->tag, "svg") == 0)
     {
         printf("SVG x: %d\n", x);
@@ -239,7 +239,9 @@ int display(t_data *data)
     clean_screen(data);
     display_grid(data);
     if (data->item)
+    {
         ft_itemiter(data, put_to_window);
+    }
     // mlx_put_image_to_window(data->mlx, data->mlx_win, data->item->img, data->x, data->y);
     return (0);
 }
