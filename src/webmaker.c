@@ -13,12 +13,61 @@ int	ft_itemsize(t_item *lst)
 	return (count);
 }
 
-void    item_position(t_item *new, int x, int y)
+void    item_position_4_html(t_item *new, int x, int y)
 {
     new->ps_x = x / 80;
     new->to_ps_x = (x / 80) + 1; // to complete
     new->ps_y = y / 40;
     new->to_ps_y = (y / 40) + 1; // to complete
+}
+
+void    item_position_4_graphics(t_item *new, int x, int y)
+{
+    if (x % 80 == 0)
+    {
+        new->x = x;
+    }
+    else
+    {
+        new->x = (x / 80) * 80;
+    }
+    if (y % 40 == 0)
+    {
+        new->y = y;
+    }
+    else
+    {
+        new->y = (y / 40) * 40;
+    }
+    
+}
+
+int free_space(t_item *item, int x, int y)
+{
+    t_item *head;
+    int i;
+
+    i = 0;
+    head = item;
+    while (item)
+    {
+        if (item->x == (x/80)*80 && item->y == (y/40)*40)
+        {
+            i++;
+        }
+        item = item->next;
+    }
+    item = head;
+    if (i == 0)
+    {
+        return (1);
+    }
+    else
+    {
+        printf("NO FREE SPACE!\n");
+        return (0);
+    }
+    
 }
 
 t_item  *what_item(t_data *data, char *tag, int x, int y)
@@ -34,9 +83,10 @@ t_item  *what_item(t_data *data, char *tag, int x, int y)
     new->img = ft_calloc(1, sizeof(t_img));
     if (strcmp(tag, "btn") == 0)
     {
-        item_position(new, x, y);
-        new->x = x;
-        new->y = y;
+        item_position_4_html(new, x, y);
+        item_position_4_graphics(new, x, y);
+        // new->x = x;
+        // new->y = y;
         new->img->img = mlx_xpm_file_to_image(data->mlx, "src/btn.xpm", &w, &h);
         new->class = ft_strjoin("my-button", ft_itoa(ft_itemsize(data->item)));;
     }
@@ -118,7 +168,7 @@ void    ft_update_item(t_data *data, char *tag, int x, int y)
     {
         data->item = data->item->next;
     }
-    item_position(data->item, x, y);
+    item_position_4_html(data->item, x, y);
     data->item->y = y;
     data->item->x = x;
     data->item = head;
@@ -146,13 +196,15 @@ void    ft_print_item(t_item *item)
     t_item *head;
 
     head = item;
-    while (item->next)
+    while (item)
     {
+        printf("tag: %s ", item->id);
+        printf("REAL X: %d ", item->x);
+        printf("REAL Y: %d\n", item->y);
+        printf("         HTML X: %d ", item->ps_x);
+        printf("  HTML Y: %d\n", item->ps_y);
         item = item->next;
     }
-    printf("tag: %s\n", item->tag);
-    printf("REAL X: %d ", item->x);
-    printf("REAL Y: %d\n", item->y);
     item = head;
 }
 
@@ -162,31 +214,53 @@ int mouse_hook(int button, int x, int y, t_data *data)
     printf("x: %d y: %d\n", x, y);
     if (button == 1)
     {
-        ft_add_item(data, "btn", x, y);
+        if (free_space(data->item, x, y))
+            ft_add_item(data, "btn", x, y);
         ft_print_item(data->item);
         data->hld_move = 0;
         data->hold = 1;
     } 
-    if (button == 2)
+    if (button == 3)
     {
         printf("SVG\n");
-        data->item->x = x;
-        data->item->y = y;
-        data->hold = 1;
+        ft_add_item(data, "svg", x, y);;
+        data->hold = 2;
     }
+    if (button == 2)
+    {
+        ft_print_item(data->item);
+    }
+    
     return (0);
 }
 
+// void    item_stretch(t_item *item, int x, int y)
+// {
+//     t_item *head;
+
+//     head = item;
+//     while (item)
+//     {
+//         if (((x / 80) * 80) == item->x && ((y / 40) * 40) == item->y)
+//         {
+//             printf("Hai selezionato l'item %s\n", item->id);
+//             break;
+//         }
+        
+//         item = item->next;
+//     }
+//     item = head;
+// }
+
 int mouse_move(int x, int y, t_data *data)
 {
-    // if (data->hold == 1)
-    // {
-    //     printf("x: %d\n", x);
-    //     printf("y: %d\n", y);
-    //     // data->item->x = x;
-    //     // data->item->y = y;
-    //     data->hld_move = 1;
-    // }
+    if (data->hold == 1)
+    {
+        // printf("Item stretch x: %d\n", x);
+        // printf("Item stretch y: %d\n", y);
+        // item_stretch(data->item, x, y);        //Stretch item too complicated
+        data->hld_move = 1;
+    }
     if (data->hold == 2 && strcmp(data->item->tag, "svg") == 0)
     {
         printf("SVG x: %d\n", x);
@@ -198,19 +272,20 @@ int mouse_move(int x, int y, t_data *data)
 int mouse_release(int button, int x, int y, t_data *data)
 {
     printf("release\n");
-    if (button == 1 && data->hld_move == 1)
-    {
-        // data->item->x = x;
-        // data->item->y = y;
-        printf("size : %d\n", ft_itemsize(data->item));
-        ft_update_item(data, "btn", x, y);
-    }
-    if (button == 2)
-    {
-        data->item->to_ps_x = x;
-        data->item->to_ps_y = y;
-        ft_add_item(data, "svg", x, y);
-    }
+    // if (button == 1 && data->hld_move == 1)
+    // {
+    //     // data->item->x = x;
+    //     // data->item->y = y;
+    //     printf("size : %d\n", ft_itemsize(data->item));
+    //     ft_update_item(data, "btn", x, y);
+    // }
+    // if (button == 3)
+    // {
+    //     printf("SVG x: %d\n", x);
+    //     data->item->to_ps_x = x;
+    //     data->item->to_ps_y = y;
+    //     ft_add_item(data, "svg", x, y);
+    // }
     data->hold = 0;
     return (0);
 }

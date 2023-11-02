@@ -65,7 +65,11 @@ void generateHTML(t_item *head) {
         fprintf(file, ".%s {", current->class); // Usiamo ".class" come selettore CSS
         printf("Element: %s\n Position: colon %d / 1, row %d / 1\n", current->class, current->ps_x + 1 , current->ps_y + 1);
         fprintf(file, "grid-column: %d / %d;", current->ps_x + 1, current->to_ps_x);
-        fprintf(file, "grid-row: %d / %d;", current->ps_y + 1, current->to_ps_y);
+        printf("TAG: %s\n", current->tag);
+        if (strcmp(current->tag, "svg") == 0)
+            fprintf(file, "grid-row: %d / span 10;", current->ps_y + 1);
+        else
+            fprintf(file, "grid-row: %d / %d;", current->ps_y + 1, current->to_ps_y);
         // fprintf(file, "background-color: white;"); // Sfondo nero per il bottone
         // fprintf(file, "border: 1px solid black;");
         // fprintf(file, "color: black;"); // Testo bianco
@@ -87,6 +91,14 @@ void generateHTML(t_item *head) {
     while (current != NULL) {
         if (strcmp(current->tag, "btn") == 0) {
             fprintf(file, "<button class=\"grid-item h-10 px-5 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700 %s\">BUTTON</button>\n", current->class); // Testo "BUTTON" nel bottone
+        }
+        if (strcmp(current->tag, "svg") == 0)
+        {
+            fprintf(file, "<div class=\"%s\">\n", current->class); 
+            fprintf(file, "<svg width=\"100\" height=\"100\" xmlns=\"http://www.w3.org/2000/svg\">\n");
+            fprintf(file, "<line x1=\"50%%\" y1=\"0\" x2=\"50%%\" y2=\"100%%\" stroke=\"black\" stroke-width=\"2\" />\n");
+            fprintf(file, "</svg>\n");
+            fprintf(file, "</div>\n");
         }
 
         current = current->next;
